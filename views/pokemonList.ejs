@@ -1,0 +1,42 @@
+<%- include("./partials/header") %>
+
+
+<div class="container">
+	<header class="jumbotron">
+		<div class="container">
+			<h1>
+			Welcome To the PokeDex
+			</h1>
+			<p>
+				Here you can view all discovered Pokemon in the National Dex
+			</p>
+			<p>
+				<a class="btn btn-primary btn-lg" href="/Pokemon/new">Add New Pokemon to the Dex</a>
+			</p>
+			</div>
+	</header>
+	
+	<div class="row text-center" style="display:flex; flex-wrap: wrap;">
+		<% pokemons.forEach(function(pokemon){ %>
+			<div class="col-md-12 col-sm-6">
+				<div class="thumbnail">
+					<!-- <img src="<%= //pokemon.image %>"> -->
+					<div class="caption">
+						<h4>
+					<%= pokemon.name %>
+						</h4>
+					</div>
+					<p>
+						<a href="/Pokemon/<%= pokemon._id %>" class="btn btn-primary">More Info</a>
+					</p>
+				</div>
+			</div>
+		<% }); %>
+	</div>
+</div>
+
+<div>
+<a href="/">Back to the Home Page</a>
+</div>
+
+<%- include("./partials/footer") %>

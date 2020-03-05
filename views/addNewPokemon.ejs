@@ -1,0 +1,23 @@
+<%- include("./partials/header") %>
+
+<h1>
+	We be addin pocket monsters boys
+</h1>
+
+<form action="/pokemonList" method=POST>
+	<div class="form-group">
+		<input class="form-control" type="text" name="pokemonName" placeholder="Pokemon Name">
+	</div>
+	<div class="form-group">
+		<input class="form-control" type="text" name="image" placeholder="Pokemon image url">
+	</div>
+	<div class="form-group">
+		<button class="btn btn-lg btn-default btn-block btn-primary">
+			Submit!
+		</button>
+	</div>
+</form>
+
+<a href="/Pokemon">Back to the pokemon list</a>
+
+<%- include("./partials/footer") %>
