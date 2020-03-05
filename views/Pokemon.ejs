@@ -3,3 +3,11 @@
 </h1>
 
 <img src="<%= pokemons.image %>">
+
+<% Object.keys(pokemons.sprites[0]).forEach(function(spriteKey) { %>
+	<img src="<%= pokemons.sprites[0][spriteKey] %>" />
+<% }) %>
+
+<pre>
+	<%= JSON.stringify(pokemons, null, 2) %>
+</pre>
