@@ -1,10 +1,13 @@
+require('dotenv').config();
+
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Pokemon = require("./models/pokemonObj")
+var CacheHandler = require('./services/CacheHandler');
 
-mongoose.connect("mongodb://localhost:27017/pokedex");
+mongoose.connect(process.env.MONGO_DSN);
 app.use(bodyParser.urlencoded({extended:true }));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
@@ -16,14 +19,15 @@ app.get("/", function(req, res){
 
 app.get("/Pokemon", function(req, res){
 	//get all pokemon from database to pokedex page
-	 Pokemon.find({}, function(err, allPokemon){
-		if(err){
-			console.log(err)
-		}
-		else {
-			res.render("pokemonList", {pokemons:allPokemon});
-		}
-	});
+
+	var page = 0;
+	if (req.query.page && !Number.isNaN(req.query.page)) {
+		page = Number(req.query.page);
+	}
+
+	CacheHandler.getPokemonPaginated(page).then(function(allPokemon) {
+		return res.render('pokemonList', { pokemons: allPokemon });
+	}).catch(err => console.error(err));
 });
 
 app.get("/Pokemon/new", function(req, res){
